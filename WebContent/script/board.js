@@ -23,3 +23,7 @@ function passCheck() {
    }
    return true;
 }
+
+function updatecl(result){
+	
+}

@@ -1,6 +1,7 @@
 package com.saeyan.controller.action;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -31,11 +32,23 @@ public class BoardUpdateAcion implements Action {
 		boardVo.setTitle(title);
 		
 		BoardDAO boardDao = BoardDAO.getInstance();
-		boardDao.updateBoard(boardVo);
+		int result = boardDao.updateBoard(boardVo);
+		
+		System.out.println(result);
+			
+		PrintWriter out = response.getWriter();
+		
+		if(result == 1) {
+			response.setContentType("text/html; charset=UTF-8");
+			out.println("<script>alert('수정완료')</script>");
+			out.println("<script>location.href='BoardServlet?command=board_list'</script>");
+		}
 		
 		
+//		request.setAttribute("result", result);
 		
-		response.sendRedirect("BoardServlet?command=board_list");
+		
+//		response.sendRedirect("BoardServlet?command=board_list");
 	}
 
 }

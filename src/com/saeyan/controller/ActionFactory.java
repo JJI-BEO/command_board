@@ -3,6 +3,7 @@ package com.saeyan.controller;
 import com.saeyan.controller.action.*;
 
 public class ActionFactory {
+	
 	private static ActionFactory instance = new ActionFactory();
 	
 	private ActionFactory() {

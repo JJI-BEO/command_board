@@ -3,6 +3,15 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <!DOCTYPE html>
+<%
+	int listCount = (Integer)(request.getAttribute("listCount"));
+	int maxPage = (Integer)(request.getAttribute("maxPage"));
+	int nowPage = (Integer)(request.getAttribute("page"));
+	int startPage = (Integer)(request.getAttribute("startPage"));
+	int endPage = (Integer)(request.getAttribute("endPage"));
+	
+%>
+
 <html>
 <head>
 <meta charset="UTF-8">
@@ -31,7 +40,80 @@
 					<td>${board.readcount }</td>
 				</tr>
 			</c:forEach>
+			<!-- 페이지 번호 시작 -->
+			<tr align="center" height="20">
+					<td colspan="5">
+			<c:choose>
+				<c:when test="${nowPage <= 1}">
+					[이전]&nbsp;
+				</c:when>
+				<c:otherwise>
+					<a href="BoardServlet?command=board_list&page=${nowPage -1}">[이전]</a>
+				</c:otherwise>
+			</c:choose>
+
+
+			<c:forEach var="pageNum" begin="${startPage }" end="${endPage }">
+				 <c:choose>
+                     <c:when test="${1 == pageNum }">
+                        ${pageNum }
+                     </c:when>
+                     <c:otherwise>
+                        <a href="BoardServlet?command=board_list&page=${pageNum }">${pageNum }</a>
+                     </c:otherwise>
+                  </c:choose>
+			</c:forEach>
+
+
+			<c:choose>
+				<c:when test="${nowPage <= 1}">
+					
+				</c:when>
+				<c:otherwise>
+					<a href="BoardServlet?command=board_list&page=${nowPage +1}">[다음]</a>
+				</c:otherwise>
+			</c:choose>
+			
+				</td>
+				</tr> 
+			<!-- 페이지 번호 끝 -->
+			
 		</table>
 	</div>
+	
+	
+	
+		<%-- <tr align="center" height="20">
+					<td colspan="5">
+						<%if(nowPage <= 1){ %>
+						[이전]&nbsp;
+						<%}else{%>
+						<a href="BoardServlet?command=board_list&page=<%=nowPage-1 %>">[이전]</a>
+						<%} %>
+						
+						<%for(int i=startPage; i<=endPage; i++){ 
+							if( i == nowPage){
+						%>
+							<%=i %>
+							<%}else{ %>
+							<a href="BoardServlet?command=board_list&page=<%=i%>">[<%=i %>]</a>
+							<%} %>
+						<%} %>
+						
+						
+						<%if(nowPage >= maxPage){ %>
+						<%}else{ %>
+						<a href="BoardServlet?command=board_list&page=<%=nowPage+1 %>">[다음]</a>
+						<%} %>
+					</td>
+				</tr>  --%>
+	
+	
+	<<%-- c:if test="${result eq 1 }">
+		<script type="text/javascript">
+			alert("수정완료");
+		</script>
+	</c:if>	 --%>
+	
 </body>
 </html>
